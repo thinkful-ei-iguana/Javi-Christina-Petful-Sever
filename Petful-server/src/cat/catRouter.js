@@ -1,15 +1,24 @@
+'use strict';
+
 const express = require('express');
 const catRouter = express.Router();
-const CatsService = require('./CatsService');
+const catService = require('./catService');
 
 catRouter
-.route('/')
-  .get((req, res) => {
-    const cats = CatsService.getCats();
-    res.json(cats);
+  .route('/')
+  .get((req,res, next) => {
+    // console.log(catService.getAllcats())
+    res.json(catService.getAllCats(req));
   })
-  .delete((req, res) => {
-    res.status(200).send(CatsService.adoptCat());
+  .delete((req, res, next) => {
+    res.json(catService.adoptCat(req));
   });
+
+
+// dogRouter.get('/', (req, res, next) => {
+//   console.log(dogService)
+//   res.json(dogService.getAllDogs())
+// })
+
 
 module.exports = catRouter;
